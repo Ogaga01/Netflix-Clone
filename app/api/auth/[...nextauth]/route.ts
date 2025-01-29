@@ -1,9 +1,9 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+// Don't forget this import!
 import prismadb from "@/lib/prismadb";
 import { compare } from "bcrypt";
-
-export default NextAuth({
+const handler = NextAuth({
   providers: [
     Credentials({
       id: "credentials",
@@ -19,36 +19,37 @@ export default NextAuth({
         },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
-          throw new Error("Email and Password required");
+        // check if we have credentials or not.
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Email and password required.");
         }
-
+        // Find the user using email from in our data base.
         const user = await prismadb.user.findUnique({
           where: {
             email: credentials.email,
           },
         });
-
+        // Check if the user exists.
         if (!user || !user.hashedPassword) {
-          throw new Error("email does not exist");
+          throw new Error("Email does not exist.");
         }
-
+        // Check if the password the user entered is correct, if so return user.
         const isCorrectPassword = await compare(
           credentials.password,
           user.hashedPassword
         );
-
         if (!isCorrectPassword) {
-          throw new Error("incorrect password");
+          throw new Error("Incorrect password.");
         }
-
         return user;
       },
     }),
   ],
+  // Our auth page.
   pages: {
-    signIn: "/auth",
+    signIn: "/Auth",
   },
+  // Turns on needed logs and errors in terminal when developing.
   debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
@@ -58,3 +59,4 @@ export default NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
 });
+export { handler as GET, handler as POST };
