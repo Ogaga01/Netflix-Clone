@@ -2,7 +2,6 @@
 import axios from "axios";
 import Input from "@/components/Input";
 import React, { useCallback, useState } from "react";
-import { error } from "console";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -70,7 +69,10 @@ const Auth = () => {
                 type="password"
               />
             </div>
-            <button className="bg-red-600 py-3 w-full rounded-md mt-10 text-white hover:bg-red-700 transition">
+            <button
+              onClick={register}
+              className="bg-red-600 py-3 w-full rounded-md mt-10 text-white hover:bg-red-700 transition"
+            >
               {variant === "login" ? "Login" : "Sign up"}
             </button>
             <p className="text-neutral-500 mt-12">
