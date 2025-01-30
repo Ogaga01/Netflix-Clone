@@ -5,7 +5,7 @@ import prismadb from "@/lib/prismadb";
 export const POST = async (req: Request) => {
   try {
     // Define three vars extracted from req.body
-    const { email, userName, password } = await req.json();
+    const { email, name, password } = await req.json();
 
     // Check to see if there is already an email registered for the email provided by the user.
     const existingUser = await prismadb.user.findUnique({
@@ -25,7 +25,7 @@ export const POST = async (req: Request) => {
     const user = await prismadb.user.create({
       data: {
         email,
-        userName,
+        name,
         hashedPassword,
         image: "",
         emailVerified: new Date(),

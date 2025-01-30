@@ -10,7 +10,7 @@ import { FaGithub } from "react-icons/fa";
 const Auth = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [userName, setUserName] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [variant, setVariant] = useState("login");
 
@@ -39,7 +39,7 @@ const Auth = () => {
     try {
       await axios.post("api/register", {
         email,
-        userName,
+        name,
         password,
       });
 
@@ -47,7 +47,7 @@ const Auth = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [email, userName, password, login]);
+  }, [email, name, password, login]);
 
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
@@ -63,9 +63,9 @@ const Auth = () => {
             <div className="flex flex-col gap-4">
               {variant === "register" && (
                 <Input
-                  value={userName}
+                  value={name}
                   onChange={(e) => {
-                    setUserName(e.target.value);
+                    setName(e.target.value);
                   }}
                   label="Username"
                   id="user"
