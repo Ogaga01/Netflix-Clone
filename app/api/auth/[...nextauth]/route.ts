@@ -1,10 +1,21 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-// Don't forget this import!
 import prismadb from "@/lib/prismadb";
 import { compare } from "bcrypt";
+import Google from "next-auth/providers/google";
+import Github from "next-auth/providers/github";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+
 const handler = NextAuth({
   providers: [
+    Github({
+      clientId: process.env.GITHUB_ID || "",
+      clientSecret: process.env.GITHUB_SECRET || "",
+    }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    }),
     Credentials({
       id: "credentials",
       name: "Credentials",
@@ -51,6 +62,7 @@ const handler = NextAuth({
   },
   // Turns on needed logs and errors in terminal when developing.
   debug: process.env.NODE_ENV === "development",
+  adapter: PrismaAdapter(prismadb),
   session: {
     strategy: "jwt",
   },
