@@ -17,7 +17,7 @@ const AccountMenu: React.FC<AccountMenuProps> = (props) => {
         <div className="px-3 group/item flex flex-row gap-3 items-center w-full">
           <img
             className="w-8 rounded-md"
-            src="/images/default-green.png"
+            src="/images/default-blue.png"
             alt="profile pic"
           />
           <p className="text-white text-sm group-hover/item:underline">
