@@ -3,6 +3,7 @@ import { authOptions } from "../auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 import { without } from "lodash";
 import prismadb from "@/lib/prismadb";
+
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   if (session) {

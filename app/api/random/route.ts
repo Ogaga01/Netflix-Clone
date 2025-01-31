@@ -2,8 +2,10 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
+
 export async function GET() {
   const session = await getServerSession(authOptions);
+
   if (session) {
     try {
       const movieCount = await prismadb.movie.count();
@@ -12,6 +14,7 @@ export async function GET() {
         take: 1,
         skip: randomId,
       });
+
       return NextResponse.json(randomMovies[0]);
     } catch (error) {
       return NextResponse.json(error);

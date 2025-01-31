@@ -3,6 +3,7 @@ import useMovie from "@/hooks/useMovie";
 import { useSession } from "next-auth/react";
 import { redirect, useParams, useRouter } from "next/navigation";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+
 const Watch = () => {
   useSession({
     required: true,
@@ -10,9 +11,11 @@ const Watch = () => {
       redirect("/api/auth/signin");
     },
   });
+
   const router = useRouter();
   const { movieId } = useParams();
   const { data } = useMovie(movieId as string);
+
   return (
     <div className="h-screen w-screen bg-black">
       <nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-black bg-opacity-70">
@@ -35,4 +38,5 @@ const Watch = () => {
     </div>
   );
 };
+
 export default Watch;
