@@ -1,26 +1,24 @@
 import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
+import FavoriteButton from "./FavoriteButton";
 
 interface MovieCardProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Record<string, any>;
 }
 
-const MovieCard: React.FC<MovieCardProps> = (props: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: Record<string, any>;
-}) => {
+const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
       <img
         className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full h-[12vw]"
-        src={props.data.thumbnailUrl}
+        src={data?.thumbnailUrl}
         alt="movie thumbnail"
       />
       <div className="opacity-0 absolute top-0 transition duration-200 z-10 invisible sm:visible delay-300 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] group-hover:opacity-100">
         <img
           className="cursor-pointer object-cover transition duration shadow-xl rounded-t-md w-full h-[12vw]"
-          src={props.data.thumbnailUrl}
+          src={data?.thumbnailUrl}
           alt="thumbnail"
         />
         <div className="z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md">
@@ -31,19 +29,18 @@ const MovieCard: React.FC<MovieCardProps> = (props: {
             >
               <BsFillPlayFill size={30} />
             </div>
+            <FavoriteButton movieId={data?.id} />
           </div>
           <p className="text-green-400 font-semibold mt-4">
-            {props.data.title} <span className="text-white">2024</span>
+            {data?.title} <span className="text-white">2024</span>
           </p>
           <div className="flex flex-row mt-4 gap-2 items-center">
             <p className="text-white text-[10px] lg:text-sm">
-              {props.data.duration}
+              {data?.duration}
             </p>
           </div>
           <div className="flex flex-row mt-4 gap-2 items-center">
-            <p className="text-white text-[10px] lg:text-sm">
-              {props.data.genre}
-            </p>
+            <p className="text-white text-[10px] lg:text-sm">{data?.genre}</p>
           </div>
         </div>
       </div>
