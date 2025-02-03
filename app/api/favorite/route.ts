@@ -4,7 +4,8 @@ import { NextResponse } from "next/server";
 import { without } from "lodash";
 import prismadb from "@/lib/prismadb";
 
-export async function POST(req: Request): Promise<unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function GET(req: Request): Promise<any> {
   const session = await getServerSession(authOptions);
   if (session) {
     try {
