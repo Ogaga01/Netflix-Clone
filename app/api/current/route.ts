@@ -4,7 +4,8 @@ import { getServerSession } from "next-auth";
 import prismadb from "@/lib/prismadb";
 
 // Finds the current user?
-export async function GET() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) {
     return new Error("Not signed in");
