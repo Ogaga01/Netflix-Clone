@@ -1,6 +1,6 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import authOptions from "@/auth";
 import prismadb from "@/lib/prismadb";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -23,5 +23,8 @@ export async function GET() {
     } catch (error) {
       return NextResponse.json(error);
     }
+  } else {
+    // Handle the case where there is no session
+    return new Response(null, { status: 401 }); // 401 Unauthorized
   }
 }
