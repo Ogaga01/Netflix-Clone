@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { without } from "lodash";
 import prismadb from "@/lib/prismadb";
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<unknown> {
   const session = await getServerSession(authOptions);
   if (session) {
     try {

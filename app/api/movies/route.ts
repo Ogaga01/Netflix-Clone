@@ -4,7 +4,7 @@ import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(req: Request) {
+export async function GET(req: Request): Promise<unknown> {
   const session = await getServerSession(authOptions);
   if (session) {
     try {
