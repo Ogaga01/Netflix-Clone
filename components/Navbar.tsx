@@ -12,18 +12,20 @@ const Navbar = () => {
   const [showBackground, setShowBackground] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY >= TOP_OFFSET) {
-        setShowBackground(true);
-      } else {
-        setShowBackground(false);
-      }
-    };
+    if (typeof window !== "undefined") {
+      const handleScroll = () => {
+        if (window.scrollY >= TOP_OFFSET) {
+          setShowBackground(true);
+        } else {
+          setShowBackground(false);
+        }
+      };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, []);
 
   const toggleMobileMenu = useCallback(() => {
